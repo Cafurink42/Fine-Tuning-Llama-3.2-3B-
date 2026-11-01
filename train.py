@@ -18,7 +18,9 @@ MODEL_NAME = "meta-llama/Llama-3.2-3B-Instruct"
 DATASET_PATH = "./data/meu_dataset.jsonl"   # formato: {"instruction": "...", "input": "...", "output": "..."}
 OUTPUT_DIR = "./outputs/llama3.2-3b-lora"
 MAX_LEN = 1024          # comece conservador com 8GB de VRAM; pode subir se sobrar memória
-NUM_EPOCHS = 15  #Tinha 30 epochs aqui, irei reduzilas para 10
+NUM_EPOCHS = 20 
+#UPDATE --- Tinha 30 epochs aqui, irei reduzir para 10 
+#UPDATE --- Tinha 10 EPOCHS, aumentei para 15
 LEARNING_RATE = 1e-4 #Tinha 2e-4 #Notação ciêntifica aqui ou seja é: 0.0001
 BATCH_SIZE = 1
 GRAD_ACCUM_STEPS = 4    # batch efetivo = BATCH_SIZE * GRAD_ACCUM_STEPS = 4

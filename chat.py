@@ -2,7 +2,6 @@
 Chat interativo para testar o modelo com o adapter LoRA treinado.
 Agora com: freio contra loops de repeticao + memoria da conversa.
 """
-
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
@@ -50,13 +49,15 @@ while True:
             top_p=0.9,
             do_sample=True,
             repetition_penalty=1.15,     # penaliza o modelo por repetir palavras já ditas
-            no_repeat_ngram_size=3,      # proíbe repetir a mesma sequência de 3 palavras
+            no_repeat_ngram_size=6,      # proíbe repetir a mesma sequência de 3 palavras | Era 3 aumentei para 6                         
             pad_token_id=tokenizer.eos_token_id,
+            #output_scores=True,
+            #return_dict_in_generate=True
+
         )
 
-    response = tokenizer.decode(
-        output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True
-    )
+    response = tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+
     print(f"\033[31mModelo:\033[0m {response}\n")
 
     # guarda a resposta no historico
@@ -65,3 +66,6 @@ while True:
     # limita o tamanho do historico (mantem só os ultimos N turnos, pra nao estourar o contexto)
     if len(messages) > MAX_HISTORY_TURNS * 2:
         messages = messages[-MAX_HISTORY_TURNS * 2:]
+
+
+
